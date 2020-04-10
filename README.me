@@ -1,0 +1,52 @@
+## groups_usersテーブル
+
+|Column|Type|Options|
+|------|----|-------|
+|user_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
+
+### Association
+- belongs_to :group
+- belongs_to :user
+
+
+## usersテーブル
+
+|Column|Type|Options|
+|------|----|-------|
+|nickname|string|null: false, unique: true|
+|mail|string|null: false, unique: true|
+|pass|integer|null: false|
+|message_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
+
+### Association
+- has_many_to :groups, through: :groups_users
+- has_many_to :messages
+
+
+## groupsテーブル
+
+|Column|Type|Options|
+|------|----|-------|
+|group|string|null: false|
+|user_id|integer|null: false, foreign_key: true|
+|time|timestamp|null: false|
+|message_id|integer|null: false, foreign_key: true|
+
+### Association
+- has_many_to :users, through: :groups_users
+- has_many_to :messages
+
+## messagesテーブル
+
+|Column|Type|Options|
+|------|----|-------|
+|message|text|
+|image|string|
+|user_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
+
+### Association
+- belongs_to :group
+- belongs_to :user
